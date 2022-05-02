@@ -2,8 +2,6 @@
 import React, {Component} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Feather from 'react-native-vector-icons/Feather';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import MediaScreen from '../screens/MediaScreen';
 import { theme } from '../components/LoginComponents/theme';
@@ -16,11 +14,12 @@ const Tab = createBottomTabNavigator();
 const BottomTabNav = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: true,
-        activeTintColor: theme.colors.primary,
-        inactiveTintColor: theme.colors.secondary,
-      }}>
+      screenOptions={{
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.secondary,
+        tabBarShowLabel: false
+      }}
+      >
       <Tab.Screen
         component={ HomeNavigator }
         name="Home"

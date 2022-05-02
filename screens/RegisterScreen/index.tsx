@@ -44,14 +44,13 @@ const RegisterScreen = () => {
     }
 
     setIsProcessing(true);
-    debugger;
-    //Register user 
     const userData = new RegisterUser(name.value, email.value, password.value);
     try {
       const response = await registerUser(userData);
+      debugger;
       console.log(response);
       setIsProcessing(false);  
-      if(response?.isError){
+      if(response?.hasError){
         setErrorMessage(response.message);
         Alert.alert(response.message);
         navigation.navigate('Register');

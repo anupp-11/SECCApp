@@ -16,13 +16,21 @@ const NewsListComponent = (props:any) => {
     }); 
   }
 
-  const LeftContent = () => <Card.Cover style={{height:50,width:48}} source={{ uri: news.image }} />
+  const LeftContent = () => <Card.Cover style={{height:50,width:48}} source={{uri:`data:image/jpeg;base64,${news.imageUrl}`}} />
 
+  //function to return date from date and time
+  function getDate(date:any){
+    const dateTime = new Date(date);
+    const day = dateTime.getDate();
+    const month = dateTime.getMonth() + 1;
+    const year = dateTime.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
   
   return (
     <View style={{marginBottom:10}} >
       <Card onPress={handelOnPress}>
-        <Card.Title title={news.title} subtitle={news.date} left={LeftContent}/>
+        <Card.Title title={news.title} subtitle={getDate(news.createdAt)} left={LeftContent}/>
       </Card>
     </View>
   );

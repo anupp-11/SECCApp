@@ -1,20 +1,23 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {  } from "../constants/api";
+import { AuthDetail } from "../models/BaseModel";
 
+const USERDATA_STORAGE = `USERDATA_STORAGE`;
 
-export async function authUser(email:string, pass:string) {
+export async function saveUserToDevice(authDetail: AuthDetail) { 
+  await AsyncStorage.setItem(USERDATA_STORAGE, JSON.stringify(authDetail));
   debugger;
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: email, password:pass })
-  };
-  debugger;
-  const response = await fetch('https://172.18.0.3:5001/User/authenticate', requestOptions);
-  const data = await response.json();
-  
-    debugger;
-   
-    return data;
- 
+  return authDetail;
 }
 
+export async function clearUserInfo() {
+  await AsyncStorage.removeItem(USERDATA_STORAGE);
+}
+
+export async function getUserFromDevice() {
+  const userString = await AsyncStorage.getItem(USERDATA_STORAGE);
+  if (userString) {
+    var user = JSON.parse(userString) as AuthDetail;
+    return user;
+  }
+}

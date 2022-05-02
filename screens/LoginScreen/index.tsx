@@ -1,5 +1,5 @@
 import React, {memo, useState} from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, View, Alert} from 'react-native';
 import BackButton from '../../components/LoginComponents/BackButton';
 import Background from '../../components/LoginComponents/Background';
 import Button from '../../components/LoginComponents/Button';
@@ -14,8 +14,9 @@ import {
   emailValidator,
   passwordValidator,
 } from '../../components/LoginComponents/utils';
-import { authUser } from '../../service/AccountService';
+import {saveUserToDevice } from '../../service/AccountService';
 import AppProgressBar from '../../components/ProgressBar';
+import { authUser } from '../../service/AuthenticationService';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -30,23 +31,43 @@ const LoginScreen = () => {
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
 
   const _onLoginPressed = async () => {
+    // navigation.dispatch(
+    //   StackActions.replace('Home', {
+    //   })
+    // );
+    
+    setIsProcessing(true);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
-    //const response = await authUser(email.value, password.value);
-    // if (emailError || passwordError) {
-    //   setEmail({...email, error: emailError});
-    //   setPassword({...password, error: passwordError});
-    //   return;
-    // }
-    debugger;
-    navigation.dispatch(
-      StackActions.replace('Home',{
-      })
-    );
-    //navigation.navigate('Home');
-  };
+    if (emailError || passwordError) {
+      setEmail({...email, error: emailError});
+      setPassword({...password, error: passwordError});
+      setIsProcessing(false);
+      return;
+    }
+    try {
+      const response = await authUser(email.value, password.value);
+      debugger;
+      setIsProcessing(false);
+      if (response?.hasError) {
+        setErrorMessage(response.message);
+      } else {
+        saveUserToDevice(response.result);
+        navigation.dispatch(
+          StackActions.replace('Home', {
+          })
+        );
+      }
+    } catch (e) {
+      setIsProcessing(false);
+      console.log(e);
+      Alert.alert("Login Failed");
+    }
+};
 
   return (
     <Background>

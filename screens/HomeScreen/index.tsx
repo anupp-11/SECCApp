@@ -10,6 +10,8 @@ import {
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/LoginComponents/Button';
+import { getUserFromDevice } from '../../service/AccountService';
+import { isExpired, decodeToken } from "react-jwt";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -18,9 +20,17 @@ const HomeScreen = () => {
   
   useEffect(() => {
     async function fetchMyAPI() {
-      // setFirstNews(news[0]);
-      // //filter out the first news
-      // setOtherNews(news.filter(news => news.id !== firstNews.id));
+      const user = await getUserFromDevice();
+      debugger;
+      if (user) {
+        const token = decodeToken(user.jwtToken);
+        if(token.userType=="ADMIN"){
+          setAdmin(true);
+        }
+        else{
+            setAdmin(false);
+        }
+      }
     }
 
     fetchMyAPI();

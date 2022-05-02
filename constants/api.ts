@@ -1,19 +1,20 @@
 
 
-export const BASE_URL ="http://0.0.0.0:5001/";
+export const BASE_URL ="https://ea24-110-44-125-147.in.ngrok.io";
 
 
 //AUTHENTICATE
-export const LOGIN_API = "/Authenticate/Login";
-export const REGISTER_API = "/Authenticate/Register";
-export const FORGOT_PASSWORD_API = "/Authenticate/ForgotPassword";
+export const LOGIN_API = "/Authentication/login";
+export const REGISTER_API = "/Authentication/register";
+export const FORGOT_PASSWORD_API = "/Authentication/ForgotPassword";
+
 
 //NEWS
-export const GETALLNEWS_API = "/News/get";
-export const GETNEWS_API = "/News/get/";
-export const ADDNEWS_API = "/News/add";
-export const EDITNEWS_API = "/News/update/";
-export const DELETENEWS_API = "/News/delete/";
+export const GETALLNEWS_API = "/NewsModel/get";
+export const GETNEWS_API = "/NewsModel/get/";
+export const ADDNEWS_API = "/NewsModel/add";
+export const EDITNEWS_API = "/NewsModel/update/";
+export const DELETENEWS_API = "/NewsModel/delete/";
 
 
 

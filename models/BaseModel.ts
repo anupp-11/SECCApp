@@ -33,3 +33,23 @@
     ){}
   
   }
+
+  export class News{
+    constructor(
+        public title: string,
+        public subTitle: string,
+        public newsSnippet: string,
+        public imageUrl: string,
+        public newsUrl: string
+    )
+    {}
+  }
+  
+  export class AuthDetail {
+    constructor(
+      public name: string,
+      public id: string,
+      public userName:string,
+      public jwtToken:string,
+    ) {}
+  }

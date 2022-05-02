@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect }  from 'react';
 import {
   View,
   Text,
@@ -13,56 +13,85 @@ import styles from './styles';
 import { FAB } from 'react-native-paper';
 import { theme } from '../../../../components/LoginComponents/theme';
 import NewsListComponent from '../../../../components/NewsComponent/NewsListComponent';
+import { getNews } from '../../../../service/NewsService';
+import Paragraph from '../../../../components/LoginComponents/Paragraph';
+import AppProgressBar from '../../../../components/ProgressBar';
 
 
 const NewsDashboardScreen = () => {
   const navigation = useNavigation();
 
-  const [news, setNews] = React.useState([
-    {
-      id: '1',
-      title: 'Five tips for staying flood-aware in NSW',
-      date: 'Mar 9, 2022',
-      image: 'https://picsum.photos/700',
-    },
-    {
-      id: '2',
-      title: 'Five tips for staying flood-aware in NSW',
-      date: 'Mar 9, 2022',
-      image: 'https://picsum.photos/800',
+  const [news, setNews] = React.useState([]);
+  const [firstNews, setFirstNews] = React.useState("");
+  const [otherNews, setOtherNews] = React.useState([]);
+  const [isProcessing, setIsProcessing] = React.useState(false);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      try {
+        setIsProcessing(true);
+        const response = await getNews();
+        setNews(response);
+        setIsProcessing(false);
+      } catch (error) {
+        setIsProcessing(false);
+        console.log(error);
+      }
     }
-  ]);
+
+    fetchMyAPI();
+  }, []);
+
 
   const renderItem = ({ item }) => <NewsListComponent news={item}/>;
 
 
-  
-  return (
-    <View style={styles.container}>
-       <FAB
-          style={styles.fab}
-          small
-          theme={{colors:{accent:theme.colors.primary}}}
-          icon="plus"
-          onPress={() => navigation.navigate("News Form")}
-        />
-        <View>
-          <FlatList
-          initialNumToRender={8}
-          showsVerticalScrollIndicator={false}
-          data={news}
-          renderItem={renderItem}
-          horizontal={false}
-          style={{
-            width: "100%",
-            marginTop: 10,
-          }}
-        />  
+  if(isProcessing){
+    return(
+      <View style={{flex:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <AppProgressBar />
+      </View>
+    )}
+    
+  else{
+    if(news.length > 0){
+      return (
+        <View style={styles.container}>
+           <FAB
+              style={styles.fab}
+              small
+              theme={{colors:{accent:theme.colors.primary}}}
+              icon="plus"
+              onPress={() => navigation.navigate("News Form")}
+            />
+            <View>
+            <FlatList
+              initialNumToRender={8}
+              showsVerticalScrollIndicator={false}
+              data={news}
+              renderItem={renderItem}
+              horizontal={false}
+              style={{
+                width: "100%",
+                marginTop: 10,
+              }}
+            />  
+            </View>
+          
+          
         </View>
-      
-      
-    </View>
-  );
+      );
+    }else{
+      return(
+        <View style={{flex:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Paragraph style={{textAlign:'center'}}>
+              No News Found
+            </Paragraph>
+        </View>
+      );
+    }
+  }
+  
 };
 
 export default NewsDashboardScreen;
