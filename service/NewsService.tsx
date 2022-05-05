@@ -1,4 +1,4 @@
-import { ADDNEWS_URL, GETALLNEWS_URL } from "../constants/api";
+import { ADDNEWS_URL, DELETENEWS_URL, GETALLNEWS_URL } from "../constants/api";
 import  axios from 'axios';
 import { getUserFromDevice } from "./AccountService";
 
@@ -29,6 +29,25 @@ export async function addNews(news : News) {
     body: JSON.stringify(news)
   };
   const response = await fetch(ADDNEWS_URL, requestOptions);
+  const data = await response.json();
+  debugger;
+  return data;
+}
+
+//DELETE NEWS
+export async function deleteNews(id:String) {
+  const user = await getUserFromDevice();
+  const token = user?.jwtToken;
+  const requestOptions = {
+    method: 'POST',
+    headers: { 
+      //'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`},
+    //body: JSON.stringify(news)
+  };
+  const url = DELETENEWS_URL + id ;
+
+  const response = await fetch(url, requestOptions);
   const data = await response.json();
   debugger;
   return data;

@@ -1,6 +1,6 @@
 
 
-export const BASE_URL ="https://ea24-110-44-125-147.in.ngrok.io";
+export const BASE_URL ="https://2fc5-120-18-7-83.au.ngrok.io";
 
 
 //AUTHENTICATE

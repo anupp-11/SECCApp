@@ -1,9 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
+  Alert,
   View
 } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { deleteNews } from '../../service/NewsService';
 
 const NewsListComponent = (props:any) => {
 
@@ -26,11 +28,29 @@ const NewsListComponent = (props:any) => {
     const year = dateTime.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+  async function onDelete(){
+    try {
+      const response =await deleteNews(news.id);
+      debugger;
+      if(response.isSuccess){
+        Alert.alert("News Deleted Successfully");
+      }else{
+        Alert.alert(response.message);
+      }
+    } catch (error) {
+      Alert.alert(error);
+    }
+  }
   
   return (
     <View style={{marginBottom:10}} >
       <Card onPress={handelOnPress}>
         <Card.Title title={news.title} subtitle={getDate(news.createdAt)} left={LeftContent}/>
+        <Card.Actions>
+          <Button>Edit</Button>
+          <Button onPress={onDelete}>Delete</Button>
+        </Card.Actions>
       </Card>
     </View>
   );
