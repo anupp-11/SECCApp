@@ -1,10 +1,10 @@
 import { StyleSheet, ImageBackground } from 'react-native';
-import { theme } from '../../../components/LoginComponents/theme';
+import { theme } from '../../../../components/LoginComponents/theme';
 
 const styles = StyleSheet.create({
 
   container:{
-    padding:10,
+    paddingHorizontal:10,
     flexDirection: 'column',
     height: '100%',
   },
@@ -25,6 +25,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#0279fe',
     lineHeight: 20,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
 

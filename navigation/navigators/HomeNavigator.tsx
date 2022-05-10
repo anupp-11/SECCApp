@@ -11,6 +11,9 @@ import PeoplePantryScreen from "../../screens/HomeScreen/PeoplePantryScreen";
 import SupportUsScreen from "../../screens/HomeScreen/SupportUsScreen";
 import AdminScreen from "../../screens/HomeScreen/AdminScreen";
 import NewsFormComponent from "../../components/NewsComponent/NewsFormComponent";
+import ServiceFormComponent from "../../components/ServiceComponent/ServiceFormComponent";
+import DonationFormComponent from "../../components/DonationComponent/DonationFormComponent";
+import CovidAppealComponent from "../../components/DonationComponent/CovidAppealComponent";
 
 
 
@@ -86,6 +89,28 @@ export default function  HomeNavigator() {
         headerBackTitleVisible: false,
       }} 
     />
+    <HomeStack.Screen
+      name="Service Form"
+      component={ServiceFormComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
+    <HomeStack.Screen
+      name="Donation Form"
+      component={DonationFormComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
+    <HomeStack.Screen
+      name="COVID-19 Appeal"
+      component={CovidAppealComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
+    
     </HomeStack.Navigator>
   );
 }

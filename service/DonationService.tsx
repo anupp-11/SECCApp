@@ -1,12 +1,14 @@
-import { ADDNEWS_URL, DELETENEWS_URL, GETALLNEWS_URL } from "../constants/api";
+import { ADDDONATIONS_API, ADDNEWS_URL, DELETEDONATIONS_URL, DELETENEWS_URL, GETALLDONATIONS_URL, GETALLNEWS_URL } from "../constants/api";
 import  axios from 'axios';
 import { getUserFromDevice } from "./AccountService";
 
+
+
 //GET ALL NEWS
-export  async  function getNews(){
+export  async  function getDonations(){
   try {
     const response = await axios.get(
-      GETALLNEWS_URL
+      GETALLDONATIONS_URL
     );
     return response.data;
   } catch (error) {
@@ -16,7 +18,7 @@ export  async  function getNews(){
 }
 
 //ADD NEWS
-export async function addNews(news : News) {
+export async function addDonation(donation : Donation) {
   const user = await getUserFromDevice();
   const token = user?.jwtToken;
   const requestOptions = {
@@ -24,16 +26,16 @@ export async function addNews(news : News) {
     headers: { 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`},
-    body: JSON.stringify(news)
+    body: JSON.stringify(donation)
   };
-  const response = await fetch(ADDNEWS_URL, requestOptions);
+  const response = await fetch(ADDDONATIONS_API, requestOptions);
   const data = await response.json();
   debugger;
   return data;
 }
 
 //DELETE NEWS
-export async function deleteNews(id:String) {
+export async function deleteDonation(id:String) {
   const user = await getUserFromDevice();
   const token = user?.jwtToken;
   const requestOptions = {
@@ -41,7 +43,7 @@ export async function deleteNews(id:String) {
     headers: { 
       'Authorization': `Bearer ${token}`},
   };
-  const url = DELETENEWS_URL + id ;
+  const url = DELETEDONATIONS_URL + id ;
 
   const response = await fetch(url, requestOptions);
   const data = await response.json();
@@ -50,13 +52,12 @@ export async function deleteNews(id:String) {
 }
 
 
-export class News{
+export class Donation{
   constructor(
       public title: string,
-      public subTitle: string,
-      public newsSnippet: string,
+      public description: string,
       public imageUrl: string,
-      public newsUrl: string
+      public donateBtnUrl: string
   )
   {}
 }

@@ -8,6 +8,7 @@ import ServicesScreen from '../ServicesScreen';
 import NewsDashboardScreen from './NewsDashboardScreen';
 import { theme } from '../../../components/LoginComponents/theme';
 import ServiceDashboardScreen from './ServiceDashboardScreen';
+import DonationDashboardScreen from './DonationDashboardScreen';
 
 const SupportUsScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const SupportUsScreen = () => {
         </TabScreen>
 
         <TabScreen label="Donation" icon="compass">
-          <ServiceDashboardScreen/>
+          <DonationDashboardScreen/>
         </TabScreen>
       </Tabs>
   );

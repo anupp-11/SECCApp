@@ -1,5 +1,5 @@
 import { StyleSheet, ImageBackground } from 'react-native';
-import { theme } from '../../../components/LoginComponents/theme';
+import { theme } from '../LoginComponents/theme';
 
 const styles = StyleSheet.create({
 
@@ -7,6 +7,19 @@ const styles = StyleSheet.create({
     padding:10,
     flexDirection: 'column',
     height: '100%',
+  },
+  card: {
+    width: '45%',
+    height:180,
+    margin: 10,
+  },
+  chip:{
+    margin:5,
+    //width:120
+  },
+  chipContainer:{
+    display:'flex',
+    flexDirection:'row',
   },
   titletext :{
     fontWeight: '700',

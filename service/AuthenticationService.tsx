@@ -10,6 +10,7 @@ export async function authUser(email:string, pass:string) {
   };
   const response = await fetch(LOGIN_URL, requestOptions);
   const data = await response.json();
+  debugger;
   return data;
 }
 

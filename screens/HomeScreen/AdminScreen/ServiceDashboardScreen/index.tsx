@@ -44,7 +44,7 @@ const ServiceDashboardScreen = () => {
           small
           theme={{colors:{accent:theme.colors.primary}}}
           icon="plus"
-          onPress={() => navigation.navigate("News Form")}
+          onPress={() => navigation.navigate("Service Form")}
         />
         <View>
           <FlatList
