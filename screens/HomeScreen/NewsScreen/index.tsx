@@ -28,7 +28,7 @@ const NewsScreen = () => {
         setIsProcessing(true);
         const response = await getNews();
         if(response.length > 0){
-          setNews(response);
+          setNews(response.reverse());
           const first = response[0];
           setFirstNews(first);
           const other = response.filter(x => x.id !== first.id);

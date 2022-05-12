@@ -14,6 +14,8 @@ import NewsFormComponent from "../../components/NewsComponent/NewsFormComponent"
 import ServiceFormComponent from "../../components/ServiceComponent/ServiceFormComponent";
 import DonationFormComponent from "../../components/DonationComponent/DonationFormComponent";
 import CovidAppealComponent from "../../components/DonationComponent/CovidAppealComponent";
+import CheckComponent from "../../components/NewsComponent/CheckComponent";
+import EditNewsFormComponent from "../../components/NewsComponent/EditNewsFormComponent";
 
 
 
@@ -70,7 +72,8 @@ export default function  HomeNavigator() {
     />
     <HomeStack.Screen
       name="Support Us"
-      component={SupportUsScreen}
+      component={CheckComponent}
+      //component={SupportUsScreen}
       options={{
         headerBackTitleVisible: false,
       }} 
@@ -85,6 +88,14 @@ export default function  HomeNavigator() {
     <HomeStack.Screen
       name="News Form"
       component={NewsFormComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
+
+    <HomeStack.Screen
+      name="Edit News"
+      component={EditNewsFormComponent}
       options={{
         headerBackTitleVisible: false,
       }} 

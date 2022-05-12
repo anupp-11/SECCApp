@@ -17,10 +17,11 @@ export default function ProfileNavigator() {
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
-        name="ProfileScreen"
+        name="Profile"
         component={ProfileScreen}
         options={{
-          headerBackTitleVisible: false,
+          headerLeft:null,
+          //headerBackTitleVisible: false,
         }} 
       />
       

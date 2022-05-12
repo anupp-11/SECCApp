@@ -8,71 +8,49 @@ import Button from '../LoginComponents/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { theme } from '../LoginComponents/theme';
 import { fieldValidator, imageValidator } from '../LoginComponents/utils';
-import { getNews,addNews } from '../../service/NewsService';
-import { News } from '../../models/BaseModel';
 import AppProgressBar from '../ProgressBar';
 import { ScrollView } from 'react-native-gesture-handler';
+import { addService, ServiceModel } from '../../service/ServicesService';
+import { EventRegister } from 'react-native-event-listeners';
 
   const Service = () => {
   
   
   const navigation = useNavigation();
   const [title, setTitle] = useState({value: '', error: ''});
-  const [subtitle, setSubtitle] = useState({value: '', error: ''});
-  const [newsSnippet, setNewsSnippet] = useState({value: '', error: ''});
-  const [newsUrl, setNewsUrl] = useState({value: '', error: ''});
-  const [image, setImage] = useState({value: '', error: ''});
+  const [parentId, setParentId] = useState({value: '', error: ''});
+  const [url, setUrl] = useState({value: '', error: ''});
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      base64:true,
-      quality: 0.2
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage({value: result.base64, error: ''});
-    }
-  };
-
-  const onAddNews = async () => {
+  const onAddService = async () => {
     setIsProcessing(true);
     const titleError = fieldValidator(title.value);
-    const subtitleError = fieldValidator(subtitle.value);
-    const newsSnippetError = fieldValidator(newsSnippet.value);
-    const newsUrlError = fieldValidator(newsUrl.value);
-    const imageUrlError = imageValidator(image.value);
-
+    const parentIdError = fieldValidator(parentId.value);
+    const urlError = fieldValidator(url.value);
   
-    if (titleError || subtitleError || newsSnippetError || newsUrlError || imageUrlError) {
+    if (titleError || parentIdError || urlError) {
       setTitle({...title, error: titleError});
-      setSubtitle({...subtitle, error: subtitleError});
-      setNewsSnippet({...newsSnippet, error: newsSnippetError});
-      setNewsUrl({...newsUrl, error: newsUrlError});
-      setImage({...image, error: imageUrlError});
+      setParentId({...parentId, error: parentIdError});
+      setUrl({...url, error: urlError});
       setIsProcessing(false);
       return;
     }
     try {
-      const news = new News(
+      const service = new ServiceModel(
         title.value,
-        subtitle.value,
-        newsSnippet.value,
-        image.value,
-        newsUrl.value
+        parentId.value,
+        url.value
       );
 
-      const response = await addNews(news);
+      const response = await addService(service);
       setIsProcessing(false);
       debugger;
       if(response.hasError){
         Alert.alert(response.error);
       }else{
-        Alert.alert('News added successfully');
-        navigation.navigate('News');
+        Alert.alert('Service added successfully');
+        navigation.navigate('Admin Dashboard');
+       // EventRegister.emit('newsUpdated', response);
       }
       
     } catch (error) {
@@ -114,61 +92,31 @@ import { ScrollView } from 'react-native-gesture-handler';
 
           {/* SUBTITLE */}
           <TextInput
-            label="Service Subtitle"
+            label="Service Parent Id"
             returnKeyType="next"
-            value={subtitle.value}
-            onChangeText={text => setSubtitle({value: text, error: ''})}
-            error={!!subtitle.error}
-            errorText={subtitle.error}
+            value={parentId.value}
+            onChangeText={text => setParentId({value: text, error: ''})}
+            error={!!parentId.error}
+            errorText={parentId.error}
             //autoCapitalize="characters"
             textContentType="name"
             keyboardType="default"
-          />
-
-          {/* Service SNIPPET */}
-          <TextInput
-            label="Service Snippet"
-            returnKeyType="next"
-            value={newsSnippet.value}
-            onChangeText={text => setNewsSnippet({value: text, error: ''})}
-            error={!!newsSnippet.error}
-            errorText={newsSnippet.error}
-            //autoCapitalize="characters"
-            textContentType="name"
-            keyboardType="default"
-            multiline={true}
-            numberOfLines={3}
           />
 
           {/* NEWS URL */}
           <TextInput
             label="Service URL"
             returnKeyType="next"
-            value={newsUrl.value}
-            onChangeText={text => setNewsUrl({value: text, error: ''})}
-            error={!!newsUrl.error}
-            errorText={newsUrl.error}
+            value={url.value}
+            onChangeText={text => setUrl({value: text, error: ''})}
+            error={!!url.error}
+            errorText={url.error}
             //autoCapitalize="characters"
             textContentType="URL"
             keyboardType="default"
           />
 
-        
-          {/* Image Uploader */}
-
-          <TouchableOpacity onPress={pickImage} style={styles.row}>
-            <Ionicons name="ios-image" color={theme.colors.primary} size={25} />
-            <Text style={styles.text}>Select title image</Text>
-          </TouchableOpacity>
-
-          {image.error ? <Text style={styles.error}>{image.error}</Text> : null}
-
-
-          {image.value ? <Image source={{uri:`data:image/jpeg;base64,${image.value}`}} style={{ width: 200, height: 200 }} /> : null}
-          
-
-
-          <Button mode="contained" onPress={onAddNews}>
+          <Button mode="contained" onPress={onAddService}>
             ADD
           </Button>
 

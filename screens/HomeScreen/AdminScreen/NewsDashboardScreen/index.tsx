@@ -1,29 +1,24 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useEffect }  from 'react';
 import {
   View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Platform,
-  Linking,
   FlatList,
 } from 'react-native';
 import styles from './styles';
 import { FAB } from 'react-native-paper';
 import { theme } from '../../../../components/LoginComponents/theme';
-import NewsListComponent from '../../../../components/NewsComponent/NewsListComponent';
 import { getNews } from '../../../../service/NewsService';
 import Paragraph from '../../../../components/LoginComponents/Paragraph';
 import AppProgressBar from '../../../../components/ProgressBar';
+import NewsListAdminComponent from '../../../../components/NewsComponent/NewsListAdminComponent';
+import { EventRegister } from "react-native-event-listeners";
 
 
 const NewsDashboardScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused()
 
   const [news, setNews] = React.useState([]);
-  const [firstNews, setFirstNews] = React.useState("");
-  const [otherNews, setOtherNews] = React.useState([]);
   const [isProcessing, setIsProcessing] = React.useState(false);
 
   useEffect(() => {
@@ -31,19 +26,24 @@ const NewsDashboardScreen = () => {
       try {
         setIsProcessing(true);
         const response = await getNews();
-        setNews(response);
+        setNews(response.reverse());
+        EventRegister.addEventListener("newsUpdated", async (data) => {
+          setIsProcessing(true);
+          const response = await getNews();
+          setNews(response.reverse());
+          setIsProcessing(false);
+        });
         setIsProcessing(false);
       } catch (error) {
         setIsProcessing(false);
         console.log(error);
       }
     }
-
     fetchMyAPI();
   }, []);
 
 
-  const renderItem = ({ item }) => <NewsListComponent news={item}/>;
+  const renderItem = ({ item }) => <NewsListAdminComponent news={item}/>;
 
 
   if(isProcessing){
@@ -84,6 +84,13 @@ const NewsDashboardScreen = () => {
     }else{
       return(
         <View style={{flex:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <FAB
+              style={styles.fab}
+              small
+              theme={{colors:{accent:theme.colors.primary}}}
+              icon="plus"
+              onPress={() => navigation.navigate("News Form")}
+            />
             <Paragraph style={{textAlign:'center'}}>
               No News Found
             </Paragraph>

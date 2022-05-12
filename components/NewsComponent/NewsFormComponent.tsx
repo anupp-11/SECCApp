@@ -12,6 +12,7 @@ import { getNews,addNews } from '../../service/NewsService';
 import { News } from '../../models/BaseModel';
 import AppProgressBar from '../ProgressBar';
 import { ScrollView } from 'react-native-gesture-handler';
+import { EventRegister } from 'react-native-event-listeners';
 
   const NewsFormComponent = () => {
   
@@ -41,16 +42,12 @@ import { ScrollView } from 'react-native-gesture-handler';
   const onAddNews = async () => {
     setIsProcessing(true);
     const titleError = fieldValidator(title.value);
-    const subtitleError = fieldValidator(subtitle.value);
-    const newsSnippetError = fieldValidator(newsSnippet.value);
     const newsUrlError = fieldValidator(newsUrl.value);
     const imageUrlError = imageValidator(image.value);
 
   
-    if (titleError || subtitleError || newsSnippetError || newsUrlError || imageUrlError) {
+    if (titleError || newsUrlError || imageUrlError) {
       setTitle({...title, error: titleError});
-      setSubtitle({...subtitle, error: subtitleError});
-      setNewsSnippet({...newsSnippet, error: newsSnippetError});
       setNewsUrl({...newsUrl, error: newsUrlError});
       setImage({...image, error: imageUrlError});
       setIsProcessing(false);
@@ -72,7 +69,8 @@ import { ScrollView } from 'react-native-gesture-handler';
         Alert.alert(response.error);
       }else{
         Alert.alert('News added successfully');
-        navigation.navigate('News');
+        navigation.navigate('Admin Dashboard');
+        EventRegister.emit('newsUpdated', response);
       }
       
     } catch (error) {
@@ -91,13 +89,9 @@ import { ScrollView } from 'react-native-gesture-handler';
       <ScrollView>
           <View style={styles.container}>
           {isProcessing == true ? (
-          <View style={{
-            position: 'absolute',
-            marginBottom: '40%',
-            zIndex: 2
-          }}>
-            <AppProgressBar/>
-          </View>) : null}
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center',zIndex:2}}>
+              <AppProgressBar/>
+            </View>) : null}
 
           {/* TITLE */}
           <TextInput
@@ -113,7 +107,7 @@ import { ScrollView } from 'react-native-gesture-handler';
           />
 
           {/* SUBTITLE */}
-          <TextInput
+          {/* <TextInput
             label="News Subtitle"
             returnKeyType="next"
             value={subtitle.value}
@@ -123,10 +117,10 @@ import { ScrollView } from 'react-native-gesture-handler';
             //autoCapitalize="characters"
             textContentType="name"
             keyboardType="default"
-          />
+          /> */}
 
           {/* NEWS SNIPPET */}
-          <TextInput
+          {/* <TextInput
             label="News Snippet"
             returnKeyType="next"
             value={newsSnippet.value}
@@ -138,7 +132,7 @@ import { ScrollView } from 'react-native-gesture-handler';
             keyboardType="default"
             multiline={true}
             numberOfLines={3}
-          />
+          /> */}
 
           {/* NEWS URL */}
           <TextInput

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,27 +13,37 @@ import styles from './styles';
 import { FAB } from 'react-native-paper';
 import { theme } from '../../../../components/LoginComponents/theme';
 import NewsListComponent from '../../../../components/NewsComponent/NewsListComponent';
+import ServiceListComponent from '../../../../components/ServiceComponent/ServiceListComponent';
+import { EventRegister } from 'react-native-event-listeners';
 
 
 const ServiceDashboardScreen = () => {
   const navigation = useNavigation();
 
-  const [news, setNews] = React.useState([
-    {
-      id: '1',
-      title: 'Five tips for staying flood-aware in NSW',
-      date: 'Mar 9, 2022',
-      image: 'https://picsum.photos/700',
-    },
-    {
-      id: '2',
-      title: 'Five tips for staying flood-aware in NSW',
-      date: 'Mar 9, 2022',
-      image: 'https://picsum.photos/800',
-    }
-  ]);
+  const [news, setNews] = React.useState([]);
+  const [isProcessing, setIsProcessing] = React.useState(false);
 
-  const renderItem = ({ item }) => <NewsListComponent news={item}/>;
+  useEffect(() => {
+    // async function fetchMyAPI() {
+    //   try {
+    //     setIsProcessing(true);
+    //     const response = await getNews();
+    //     setNews(response.reverse());
+    //     EventRegister.addEventListener("newsUpdated", async (data) => {
+    //       setIsProcessing(true);
+    //       const response = await getNews();
+    //       setNews(response.reverse());
+    //       setIsProcessing(false);
+    //     });
+    //     setIsProcessing(false);
+    //   } catch (error) {
+    //     setIsProcessing(false);
+    //     console.log(error);
+    //   }
+    // }
+    //fetchMyAPI();
+  }, []);
+  const renderItem = ({ item }) => <ServiceListComponent service={item}/>;
 
 
   
@@ -48,16 +58,16 @@ const ServiceDashboardScreen = () => {
         />
         <View>
           <FlatList
-          initialNumToRender={8}
-          showsVerticalScrollIndicator={false}
-          data={news}
-          renderItem={renderItem}
-          horizontal={false}
-          style={{
-            width: "100%",
-            marginTop: 10,
-          }}
-        />  
+            initialNumToRender={8}
+            showsVerticalScrollIndicator={false}
+            data={news}
+            renderItem={renderItem}
+            horizontal={false}
+            style={{
+              width: "100%",
+              marginTop: 10,
+            }}
+          />  
         </View>
       
       

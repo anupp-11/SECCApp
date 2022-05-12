@@ -114,6 +114,10 @@ const LoginScreen = () => {
         errorText={password.error}
         secureTextEntry
       />
+      {errorMessage ? (
+              <View>
+                <Text style={{color:'red',margin:10}}>{errorMessage}</Text>
+              </View>):(<View></View>)}
       <View style ={styles.forgotPassword}>
         <View>
           <TouchableOpacity onPress={ForgotPassword}>

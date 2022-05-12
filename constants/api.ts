@@ -1,4 +1,4 @@
-export const BASE_URL ="https://2fc5-120-18-7-83.au.ngrok.io";
+export const BASE_URL ="https://eb01-43-245-86-103.in.ngrok.io";
 
 //AUTHENTICATE
 export const LOGIN_API = "/Authentication/login";
@@ -11,6 +11,16 @@ export const GETNEWS_API = "/NewsModel/get/";
 export const ADDNEWS_API = "/NewsModel/add";
 export const EDITNEWS_API = "/NewsModel/update/";
 export const DELETENEWS_API = "/NewsModel/delete/";
+
+//ServiceCategory
+export const GETALLSERVICECATEGORY_API = "/ServiceCategory/get";
+export const GETSERVICECATEGORY_API = "/ServiceCategory/get/";
+export const GETSERVICECATEGORYBYPARENTID_API = "/ServiceCategory/getByParentId/";
+export const ADDSERVICECATEGORY_API = "/ServiceCategory/add";
+export const EDITSERVICECATEGORY_API = "/ServiceCategory/update/";
+export const DELETESERVICECATEGORY_API = "/ServiceCategory/delete/";
+
+
 
 //FundRaisingCampaign
 export const GETALLDONATIONS_API = "/FundRaisingCampaign/get";
@@ -38,5 +48,14 @@ export const GETDONATIONS_URL = `${BASE_URL}${GETDONATIONS_API}`;
 export const ADDDONATIONS_URL = `${BASE_URL}${ADDDONATIONS_API}`;
 export const EDITDONATIONS_URL = `${BASE_URL}${EDITDONATIONS_API}`;
 export const DELETEDONATIONS_URL = `${BASE_URL}${DELETEDONATIONS_API}`;
+
+
+//ServiceCategory
+export const GETALLSERVICECATEGORY_URL = `${BASE_URL}${GETALLSERVICECATEGORY_API}`;
+export const GETSERVICECATEGORY_URL = `${BASE_URL}${GETSERVICECATEGORY_API}`;
+export const ADDSERVICECATEGORY_URL = `${BASE_URL}${ADDSERVICECATEGORY_API}`;
+export const EDITSERVICECATEGORY_URL = `${BASE_URL}${EDITSERVICECATEGORY_API}`;
+export const DELETESERVICECATEGORY_URL = `${BASE_URL}${DELETESERVICECATEGORY_API}`;
+export const GETSERVICECATEGORYBYPARENTID_URL = `${BASE_URL}${GETSERVICECATEGORYBYPARENTID_API}`;
 
 

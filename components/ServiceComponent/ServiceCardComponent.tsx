@@ -13,7 +13,7 @@ const ServiceCardComponent = (props:any) => {
   const navigation = useNavigation();
   const handelOnPress=()=>{
     navigation.navigate("Service", {
-      service: service,
+      service: service.id,
     }); 
   }
     

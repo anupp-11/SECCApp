@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 const DashboardStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false, gestureEnabled:false}} >
       <Stack.Screen component={DashboardScreen} name="Dashboard" />
       <Stack.Screen component={LoginScreen} name="Login" />
       <Stack.Screen component={RegisterScreen} name="Register" />

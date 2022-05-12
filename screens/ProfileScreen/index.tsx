@@ -1,21 +1,17 @@
 import React from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Alert} from 'react-native';
 import {
   Avatar,
   Title,
   Caption,
   Text,
   TouchableRipple,
+  Button,
 } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/Feather';
 import FAIcon from 'react-native-vector-icons/FontAwesome5';
-
-
-
-import Button from '../../components/LoginComponents/Button';
-
 import styles from './styles';
 import { theme } from '../../components/LoginComponents/theme';
 import navigation from '../../navigation';
@@ -25,9 +21,33 @@ import navigation from '../../navigation';
 // create a component
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const _onSMRPressed = () => {
-    navigation.navigate('SMRScreen');
+
+  const logout = async ()=>{
+    // var data = {
+    //   "id": "",
+    //   "name": "",
+    //   "userName": "",
+    //   "jwtToken": ""
+    // }
+    // const resp = await saveUserToDevice(data);
+    console.log("Logout Pressed");
+    navigation.navigate("Dashboard");
+
   }
+  const onLogout = () => {
+    Alert.alert("Hold on!", "Are you sure you want to Signout?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => logout() }
+    ]);
+  }
+
+
+  
+
   return (
     <SafeAreaView style={styles.container}>
 
@@ -43,8 +63,8 @@ const ProfileScreen = () => {
           <Title style={[styles.title, {
             marginTop:15,
             marginBottom: 5,
-          }]}>Saurab</Title>
-          <Caption style={styles.caption}>@saurab</Caption>
+          }]}>Full Name</Title>
+          <Caption style={styles.caption}>username</Caption>
         </View>
       </View>
     </View>
@@ -52,15 +72,15 @@ const ProfileScreen = () => {
     <View style={styles.userInfoSection}>
       <View style={styles.row}>
         <Icon name="map-marker-radius" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>Dhapakhel, Lalitpur</Text>
+        <Text style={{color:"#777777", marginLeft: 20}}>Address, Country</Text>
       </View>
       <View style={styles.row}>
         <Icon name="phone" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>+977-9867564548</Text>
+        <Text style={{color:"#777777", marginLeft: 20}}>+40-234234234</Text>
       </View>
       <View style={styles.row}>
         <Icon name="email" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>rame@email.com</Text>
+        <Text style={{color:"#777777", marginLeft: 20}}>user@email.com</Text>
       </View>
     </View>
     <View
@@ -74,7 +94,7 @@ const ProfileScreen = () => {
 
 
     <View style={styles.menuWrapper}>
-      
+      <Button mode='contained' style={{margin:10}} color={theme.colors.primary} onPress={onLogout}>Logout</Button>
 
   
     </View>

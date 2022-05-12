@@ -81,28 +81,25 @@ const ServicesScreen = () => {
         }
       ]
     },
-    {
-      id:"5",
-      name:"Events",
-      image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-      subServices:[
-        {
-          id:"1",
-          name:"Smooch",
-          image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-        },
-        {
-          id:"2",
-          name:"Education",
-          image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-        }
-      ]
-    }
+    // {
+    //   id:"5",
+    //   name:"Events",
+    //   image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
+    //   subServices:[
+    //     {
+    //       id:"1",
+    //       name:"Smooch",
+    //       image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
+    //     },
+    //     {
+    //       id:"2",
+    //       name:"Education",
+    //       image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
+    //     }
+    //   ]
+    // }
   ]);
   
-  const handelOnPress=()=>{
-    navigation.navigate("News Detail"); 
-  }
   const renderItem = ({ item }) => <ServiceCardComponent service={item}/>;
 
   return (
