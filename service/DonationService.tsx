@@ -1,4 +1,4 @@
-import { ADDDONATIONS_API, ADDNEWS_URL, DELETEDONATIONS_URL, DELETENEWS_URL, GETALLDONATIONS_URL, GETALLNEWS_URL } from "../constants/api";
+import { ADDDONATIONS_API, ADDDONATIONS_URL, ADDNEWS_URL, DELETEDONATIONS_URL, DELETENEWS_URL, EDITDONATIONS_URL, GETALLDONATIONS_URL, GETALLNEWS_URL } from "../constants/api";
 import  axios from 'axios';
 import { getUserFromDevice } from "./AccountService";
 
@@ -28,11 +28,36 @@ export async function addDonation(donation : Donation) {
       'Authorization': `Bearer ${token}`},
     body: JSON.stringify(donation)
   };
-  const response = await fetch(ADDDONATIONS_API, requestOptions);
+  debugger;
+  const response = await fetch(ADDDONATIONS_URL, requestOptions);
   const data = await response.json();
   debugger;
   return data;
 }
+
+
+//UPDATE DONATION
+export async function updateDonation(donation : Donation,id:string) {
+  debugger;
+  const user = await getUserFromDevice();
+  const token = user?.jwtToken;
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(donation)
+  }
+  const url = `${EDITDONATIONS_URL}`+ id;
+
+  const response = await fetch(url, requestOptions);
+  const data = await response.json();
+  debugger;
+  return data;
+}
+
+
 
 //DELETE NEWS
 export async function deleteDonation(id:String) {

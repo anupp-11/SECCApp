@@ -10,17 +10,17 @@ import { theme } from '../LoginComponents/theme';
 import { fieldValidator, imageValidator } from '../LoginComponents/utils';
 import AppProgressBar from '../ProgressBar';
 import { ScrollView } from 'react-native-gesture-handler';
-import { addDonation, Donation } from '../../service/DonationService';
+import { addDonation, Donation, updateDonation } from '../../service/DonationService';
 import { EventRegister } from 'react-native-event-listeners';
 
-  const DonationFormComponent = () => {
+  const EditDonationFormComponent = (props:any) => {
   
-  
+  const [donation, setDonation] = React.useState(props.route.params.donation);
   const navigation = useNavigation();
-  const [title, setTitle] = useState({value: '', error: ''});
-  const [description, setDescription] = useState({value: '', error: ''});
-  const [donationUrl, setDonationUrl] = useState({value: '', error: ''});
-  const [image, setImage] = useState({value: '', error: ''});
+  const [title, setTitle] = useState({value: donation.title, error: ''});
+  const [description, setDescription] = useState({value: donation.description, error: ''});
+  const [donationUrl, setDonationUrl] = useState({value: donation.donateBtnUrl, error: ''});
+  const [image, setImage] = useState({value: donation.imageUrl, error: ''});
   const [isProcessing, setIsProcessing] = useState(false);
 
   const pickImage = async () => {
@@ -33,7 +33,7 @@ import { EventRegister } from 'react-native-event-listeners';
     }
   };
 
-  const onAddDonation = async () => {
+  const onUpdateDonation = async () => {
     setIsProcessing(true);
     const titleError = fieldValidator(title.value);
     const descriptionError = fieldValidator(description.value);
@@ -50,20 +50,20 @@ import { EventRegister } from 'react-native-event-listeners';
       return;
     }
     try {
-      const donation = new Donation(
+      const donationData = new Donation(
         title.value,
         description.value,
         image.value,
         donationUrl.value
       );
 
-      const response = await addDonation(donation);
+      const response = await updateDonation(donationData,donation.id);
       setIsProcessing(false);
       debugger;
       if(response.hasError){
         Alert.alert(response.error);
       }else{
-        Alert.alert('Donation added successfully');
+        Alert.alert('Donation updated successfully');
         navigation.navigate('Admin Dashboard');
         EventRegister.emit('donationUpdated', response);
       }
@@ -140,13 +140,13 @@ import { EventRegister } from 'react-native-event-listeners';
 
           {image.value ? <Image source={{uri:`data:image/jpeg;base64,${image.value}`}} style={{ width: 200, height: 200 }} /> : null}
         
-          <Button mode="contained" onPress={onAddDonation}>
-            ADD
+          <Button mode="contained" onPress={onUpdateDonation}>
+            UPDATE
           </Button>
         </View>
       </ScrollView>
     )
   
 };
-export default memo(DonationFormComponent);
+export default memo(EditDonationFormComponent);
 

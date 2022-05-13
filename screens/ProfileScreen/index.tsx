@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, SafeAreaView, StyleSheet, Alert} from 'react-native';
 import {
   Avatar,
@@ -15,12 +15,32 @@ import FAIcon from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import { theme } from '../../components/LoginComponents/theme';
 import navigation from '../../navigation';
+import { getUserFromDevice } from '../../service/AccountService';
+import { AuthDetail } from '../../models/BaseModel';
+import AppProgressBar from '../../components/ProgressBar';
 
 
 
 // create a component
 const ProfileScreen = () => {
   const navigation = useNavigation();
+
+  
+  const [user, setUser] = React.useState("");
+  const [isProcessing, setIsProcessing] = React.useState(false);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      //get user detail from local storage
+      setIsProcessing(true);
+      const user = await getUserFromDevice();
+      setUser(user);
+      setIsProcessing(false);
+      
+    }
+
+    fetchMyAPI();
+  }, []);
 
   const logout = async ()=>{
     // var data = {
@@ -47,59 +67,67 @@ const ProfileScreen = () => {
 
 
   
+  if(isProcessing){
+    return (
+      <View style={{flex:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <AppProgressBar />
+      </View>
+    );
+  }
+  else{
+    return (
+      <SafeAreaView style={styles.container}>
 
-  return (
-    <SafeAreaView style={styles.container}>
-
-    <View style={styles.userInfoSection}>
-      <View style={{flexDirection: 'row', marginTop: 15}}>
-        <Avatar.Image 
-          source={{
-            uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
-          }}
-          size={80}
-        />
-        <View style={{marginLeft: 20}}>
-          <Title style={[styles.title, {
-            marginTop:15,
-            marginBottom: 5,
-          }]}>Full Name</Title>
-          <Caption style={styles.caption}>username</Caption>
+      <View style={styles.userInfoSection}>
+        <View style={{flexDirection: 'row', marginTop: 15}}>
+          <Avatar.Image 
+            source={{
+              uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
+            }}
+            size={80}
+          />
+          <View style={{marginLeft: 20}}>
+            <Title style={[styles.title, {
+              marginTop:15,
+              marginBottom: 5,
+            }]}>{user.name}</Title>
+            {/* <Caption style={styles.caption}>{username}</Caption> */}
+          </View>
         </View>
       </View>
-    </View>
 
-    <View style={styles.userInfoSection}>
-      <View style={styles.row}>
-        <Icon name="map-marker-radius" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>Address, Country</Text>
+      <View style={styles.userInfoSection}>
+        {/* <View style={styles.row}>
+          <Icon name="map-marker-radius" color="#777777" size={20}/>
+          <Text style={{color:"#777777", marginLeft: 20}}>Address, Country</Text>
+        </View>
+        <View style={styles.row}>
+          <Icon name="phone" color="#777777" size={20}/>
+          <Text style={{color:"#777777", marginLeft: 20}}>+40-234234234</Text>
+        </View> */}
+        <View style={styles.row}>
+          <Icon name="email" color="#777777" size={20}/>
+          <Text style={{color:"#777777", marginLeft: 20}}>{user.email}</Text>
+        </View>
       </View>
-      <View style={styles.row}>
-        <Icon name="phone" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>+40-234234234</Text>
+      <View
+        style={{
+        borderBottomColor: theme.colors.surface,
+        borderBottomWidth: 3,
+        marginHorizontal: 10,
+        marginBottom: 10
+        }}
+      />
+
+
+      <View style={styles.menuWrapper}>
+        <Button mode='contained' style={{margin:10}} color={theme.colors.primary} onPress={onLogout}>Logout</Button>
+
+    
       </View>
-      <View style={styles.row}>
-        <Icon name="email" color="#777777" size={20}/>
-        <Text style={{color:"#777777", marginLeft: 20}}>user@email.com</Text>
-      </View>
-    </View>
-    <View
-      style={{
-      borderBottomColor: theme.colors.surface,
-      borderBottomWidth: 3,
-      marginHorizontal: 10,
-      marginBottom: 10
-      }}
-    />
-
-
-    <View style={styles.menuWrapper}>
-      <Button mode='contained' style={{margin:10}} color={theme.colors.primary} onPress={onLogout}>Logout</Button>
-
-  
-    </View>
-  </SafeAreaView>
-  );
+    </SafeAreaView>
+    );
+  }
 };
 
 export default ProfileScreen;

@@ -16,88 +16,23 @@ const ServicesScreen = () => {
     {
       id:"1",
       name:"Families",
-      image:"https://images.pexels.com/photos/4205505/pexels-photo-4205505.jpeg",
-      subServices:[
-        {
-          id:"1",
-          name:"Smooch",
-          image:"https://images.pexels.com/photos/4205505/pexels-photo-4205505.jpeg",
-        },
-        {
-          id:"2",
-          name:"Education",
-          image:"https://picsum.photos/800",
-        }
-      ]
+      image: require("../../../assets/images/familie.jpeg"),
     },
     {
       id:"2",
       name:"Young People",
-      image:"https://images.pexels.com/photos/3063478/pexels-photo-3063478.jpeg",
-      subServices:[
-        {
-          id:"1",
-          name:"Smooch",
-          image:"https://images.pexels.com/photos/3063478/pexels-photo-3063478.jpeg",
-        },
-        {
-          id:"2",
-          name:"Education",
-          image:"https://picsum.photos/700",
-        }
-      ]
+      image:require("../../../assets/images/young.jpeg"),
     },
     {
       id:"3",
       name:"Seniors",
-      image:"https://images.pexels.com/photos/6838620/pexels-photo-6838620.jpeg",
-      subServices:[
-        {
-          id:"1",
-          name:"Smooch",
-          image:"https://images.pexels.com/photos/6838620/pexels-photo-6838620.jpeg",
-        },
-        {
-          id:"2",
-          name:"Education",
-          image:"https://images.pexels.com/photos/6838620/pexels-photo-6838620.jpeg",
-        }
-      ]
+      image:require("../../../assets/images/Seniors.jpeg"),
     },
     {
       id:"4",
       name:"Community",
-      image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-      subServices:[
-        {
-          id:"1",
-          name:"Smooch",
-          image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-        },
-        {
-          id:"2",
-          name:"Education",
-          image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-        }
-      ]
-    },
-    // {
-    //   id:"5",
-    //   name:"Events",
-    //   image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-    //   subServices:[
-    //     {
-    //       id:"1",
-    //       name:"Smooch",
-    //       image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-    //     },
-    //     {
-    //       id:"2",
-    //       name:"Education",
-    //       image:"https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg",
-    //     }
-    //   ]
-    // }
+      image:require("../../../assets/images/community.jpeg"),
+    }
   ]);
   
   const renderItem = ({ item }) => <ServiceCardComponent service={item}/>;

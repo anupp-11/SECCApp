@@ -16,6 +16,8 @@ import DonationFormComponent from "../../components/DonationComponent/DonationFo
 import CovidAppealComponent from "../../components/DonationComponent/CovidAppealComponent";
 import CheckComponent from "../../components/NewsComponent/CheckComponent";
 import EditNewsFormComponent from "../../components/NewsComponent/EditNewsFormComponent";
+import EditDonationFormComponent from "../../components/DonationComponent/EditDonationFormComponent";
+import DonationComponent from "../../components/DonationComponent/DonationComponent";
 
 
 
@@ -72,8 +74,7 @@ export default function  HomeNavigator() {
     />
     <HomeStack.Screen
       name="Support Us"
-      component={CheckComponent}
-      //component={SupportUsScreen}
+      component={SupportUsScreen}
       options={{
         headerBackTitleVisible: false,
       }} 
@@ -100,6 +101,14 @@ export default function  HomeNavigator() {
         headerBackTitleVisible: false,
       }} 
     />
+
+    <HomeStack.Screen
+      name="Edit Donation"
+      component={EditDonationFormComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
     <HomeStack.Screen
       name="Service Form"
       component={ServiceFormComponent}
@@ -122,6 +131,13 @@ export default function  HomeNavigator() {
       }} 
     />
     
+    <HomeStack.Screen
+      name="Donation Detail"
+      component={DonationComponent}
+      options={{
+        headerBackTitleVisible: false,
+      }} 
+    />
     </HomeStack.Navigator>
   );
 }

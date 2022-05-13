@@ -7,9 +7,10 @@ import WebView from 'react-native-webview';
 import AppProgressBar from '../ProgressBar';
 
 
-export default function NewsComponent(props:any){
+export default function ServiceWebViewComponent(props:any){
 
-  const [news,setNews] = React.useState(props.route.params.news);
+  debugger;
+  const [service,setService] = React.useState(props.service);
 
   const runFirst = `
     let selector = document.querySelector("header#main-header")
@@ -20,7 +21,6 @@ export default function NewsComponent(props:any){
     selector.style.display = "none"
     selector2.style.display = "none"
     selector3.style.marginTop = "-200px"
-    selector3.style.marginBottom = "-60px"
     social.style.display = "none"
       
     true; // note: this is required, or you'll sometimes get silent failures
@@ -29,7 +29,7 @@ export default function NewsComponent(props:any){
   
     return(
         <WebView 
-          source={{ uri:news.newsUrl }} 
+          source={{ uri:service.url }} 
           injectedJavaScript={runFirst}
           javaScriptEnabled={true}
           onMessage={(event) => {runFirst}}

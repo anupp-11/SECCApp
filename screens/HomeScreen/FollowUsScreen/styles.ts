@@ -4,19 +4,22 @@ import { theme } from '../../../components/LoginComponents/theme';
 const styles = StyleSheet.create({
 
   container:{
-    marginTop: 40,
+    marginTop: 20,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    alignContent: 'space-around',
+    //alignContent: 'space-around',
     height: '100%',
   },
   card: {
+    marginVertical:20,
     width: '40%',
     height:180,
-    margin: 10,
+    margin: 15,
+   
+    //borderRadius: 15,
   },
 
 
@@ -29,12 +32,13 @@ const styles = StyleSheet.create({
     width:'100%',
     backgroundColor: '#fff',
     borderRadius: 15,
+    borderWidth:1,
+    borderColor: theme.colors.primary,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 1,
-    
   },
       
   titletxt :{

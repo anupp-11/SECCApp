@@ -12,26 +12,31 @@ import {
 import styles from './styles';
 import { FAB } from 'react-native-paper';
 import { theme } from '../../../../components/LoginComponents/theme';
-import NewsListComponent from '../../../../components/NewsComponent/NewsListComponent';
-import { getNews } from '../../../../service/NewsService';
 import Paragraph from '../../../../components/LoginComponents/Paragraph';
 import AppProgressBar from '../../../../components/ProgressBar';
+import DonationListAdminComponent from '../../../../components/DonationComponent/DonationListAdminComponent';
+import { getDonations } from '../../../../service/DonationService';
+import { EventRegister } from 'react-native-event-listeners';
 
 
 const DonationScreen = () => {
   const navigation = useNavigation();
 
-  const [news, setNews] = React.useState([]);
-  const [firstNews, setFirstNews] = React.useState("");
-  const [otherNews, setOtherNews] = React.useState([]);
+  const [donation, setDonation] = React.useState([]);
   const [isProcessing, setIsProcessing] = React.useState(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
       try {
         setIsProcessing(true);
-        const response = await getNews();
-        setNews(response);
+        const response = await getDonations();
+        setDonation(response.reverse());
+        EventRegister.addEventListener("donationUpdated", async (data) => {
+          setIsProcessing(true);
+          const response = await getDonations();
+          setDonation(response.reverse());
+          setIsProcessing(false);
+        });
         setIsProcessing(false);
       } catch (error) {
         setIsProcessing(false);
@@ -39,11 +44,11 @@ const DonationScreen = () => {
       }
     }
 
-    //fetchMyAPI();
+    fetchMyAPI();
   }, []);
 
 
-  const renderItem = ({ item }) => <NewsListComponent news={item}/>;
+  const renderItem = ({ item }) => <DonationListAdminComponent donation={item}/>;
 
 
   if(isProcessing){
@@ -54,7 +59,7 @@ const DonationScreen = () => {
     )}
     
   else{
-    if(news.length > 0){
+    if(donation.length > 0){
       return (
         <View style={styles.container}>
            <FAB
@@ -68,7 +73,7 @@ const DonationScreen = () => {
             <FlatList
               initialNumToRender={8}
               showsVerticalScrollIndicator={false}
-              data={news}
+              data={donation}
               renderItem={renderItem}
               horizontal={false}
               style={{

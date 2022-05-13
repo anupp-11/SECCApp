@@ -5,16 +5,17 @@ import {
   View
 } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { deleteNews } from '../../service/NewsService';
+import AppProgressBar from '../ProgressBar';
 
 const DonationListComponent = (props:any) => {
 
-  const [donation, setDonation] = React.useState(props.news);
+  const [donation, setDonation] = React.useState(props.donation);
+  const [isProcessing, setIsProcessing] = React.useState(false);
 
   const navigation = useNavigation();
   const handelOnPress=()=>{
-    navigation.navigate("News Detail", {
-      news: donation,
+    navigation.navigate("Donation Detail", {
+      donation: donation,
     }); 
   }
 
@@ -29,43 +30,16 @@ const DonationListComponent = (props:any) => {
     return `${day}/${month}/${year}`;
   }
 
-  async function confirmDelete(){
-    console.log("Deleted");
-    // try {
-    //   const response =await deleteNews(donation.id);
-    //   debugger;
-    //   if(response.isSuccess){
-    //     Alert.alert("Donation Deleted Successfully");
-    //   }else{
-    //     Alert.alert(response.message);
-    //   }
-    // } catch (error) {
-    //   Alert.alert(error);
-    // }
-  }
-  async function onDelete(){
-    Alert.alert("Hold on!", "Are you sure you want to Delete?", [
-      {
-        text: "No",
-        onPress: () => null,
-        style: "cancel"
-      },
-      { text: "Yes", onPress: () => confirmDelete() }
-    ]);
-  }
-
-  function onEdit(){
-    
-  }
+  
   
   return (
-    <View style={{marginBottom:10}} >
+    <View style={{marginBottom:10,flex:1,width:'100%'}} >
+      {isProcessing == true ? (
+        <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center',zIndex:2}}>
+          <AppProgressBar/>
+        </View>) : null}
       <Card onPress={handelOnPress}>
         <Card.Title title={donation.title} subtitle={getDate(donation.createdAt)} left={LeftContent}/>
-        <Card.Actions>
-          <Button>Edit</Button>
-          <Button onPress={onDelete}>Delete</Button>
-        </Card.Actions>
       </Card>
     </View>
   );

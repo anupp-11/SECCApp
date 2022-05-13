@@ -22,7 +22,7 @@ const CovidAppealComponent = () => {
 
   //function to open donation in web
   function readInWeb(){
-    const url = "https://www.google.com";
+    const url = "https://seccsydney.kindful.com/embeds/c4cffca9-4f45-479e-987c-e790f5f5e03d?p=https%3A&amp%3Bembedded=true";
     Linking.openURL(url);
   }
   

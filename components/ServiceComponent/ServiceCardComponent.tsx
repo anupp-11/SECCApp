@@ -9,7 +9,7 @@ import styles from './styles';
 const ServiceCardComponent = (props:any) => {
 
   const [service, setService] = React.useState(props.service);
-
+  debugger;
   const navigation = useNavigation();
   const handelOnPress=()=>{
     navigation.navigate("Service", {
@@ -19,7 +19,7 @@ const ServiceCardComponent = (props:any) => {
     
   return (
     <Card style={styles.card} onPress={handelOnPress}>
-      <Card.Cover style={{height:130}} source={{ uri: service.image }} />
+      <Card.Cover style={{height:130}} source={service.image} />
       <Card.Title titleStyle={{ fontSize:16 }} title={service.name}/>
     </Card>
   );

@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     margin:5,
     //width:120
   },
-  chipContainer:{
-    display:'flex',
-    flexDirection:'row',
-  }
+  // chipContainer:{
+  //   display:'flex',
+  //   flexDirection:'row',
+  // }
 });
 
 export default styles;

@@ -21,15 +21,15 @@ const SupportUsScreen = () => {
         theme={{colors:{primary:theme.colors.primary}}}
         style={{ backgroundColor:'#fff' }} // works the same as AppBar in react-native-paper
       >
-        <TabScreen label="News" icon="compass">
+        <TabScreen label="News" icon="newspaper">
            <NewsDashboardScreen/>
         </TabScreen>
       
-        <TabScreen label="Services" icon="compass">
+        {/* <TabScreen label="Services" icon="compass">
           <ServiceDashboardScreen/>
-        </TabScreen>
+        </TabScreen> */}
 
-        <TabScreen label="Donation" icon="compass">
+        <TabScreen label="Donation" icon="bank-plus">
           <DonationDashboardScreen/>
         </TabScreen>
       </Tabs>

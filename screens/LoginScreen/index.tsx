@@ -35,39 +35,39 @@ const LoginScreen = () => {
 
 
   const _onLoginPressed = async () => {
-    navigation.dispatch(
-      StackActions.replace('Home', {
-      })
-    );
+    // navigation.dispatch(
+    //   StackActions.replace('Home', {
+    //   })
+    // );
     
-    // setIsProcessing(true);
-    // const emailError = emailValidator(email.value);
-    // const passwordError = passwordValidator(password.value);
-    // if (emailError || passwordError) {
-    //   setEmail({...email, error: emailError});
-    //   setPassword({...password, error: passwordError});
-    //   setIsProcessing(false);
-    //   return;
-    // }
-    // try {
-    //   debugger;
-    //   const response = await authUser(email.value, password.value);
-    //   debugger;
-    //   setIsProcessing(false);
-    //   if (response?.hasError) {
-    //     setErrorMessage(response.message);
-    //   } else {
-    //     saveUserToDevice(response.result);
-    //     navigation.dispatch(
-    //       StackActions.replace('Home', {
-    //       })
-    //     );
-    //   }
-    // } catch (e) {
-    //   setIsProcessing(false);
-    //   console.log(e);
-    //   Alert.alert("Login Failed");
-    // }
+    setIsProcessing(true);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
+    if (emailError || passwordError) {
+      setEmail({...email, error: emailError});
+      setPassword({...password, error: passwordError});
+      setIsProcessing(false);
+      return;
+    }
+    try {
+      debugger;
+      const response = await authUser(email.value, password.value);
+      debugger;
+      setIsProcessing(false);
+      if (response?.hasError) {
+        setErrorMessage(response.message);
+      } else {
+        saveUserToDevice(response.result);
+        navigation.dispatch(
+          StackActions.replace('Home', {
+          })
+        );
+      }
+    } catch (e) {
+      setIsProcessing(false);
+      console.log(e);
+      Alert.alert("Login Failed");
+    }
 };
 
   return (

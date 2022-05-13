@@ -32,11 +32,11 @@ const BottomTabNav = () => {
       />
 
        <Tab.Screen
-        name="Search"
+        name="Events"
         component={ExploreScreen}
         options={{
           tabBarIcon: ({color}) => (
-            <Feather name="search" color={color} size={20} />
+            <Feather name="calendar" color={color} size={20} />
           ),
         }}
       />

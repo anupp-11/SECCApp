@@ -1,4 +1,4 @@
-export const BASE_URL ="https://eb01-43-245-86-103.in.ngrok.io";
+export const BASE_URL ="https://c0cd-103-163-182-82.in.ngrok.io";
 
 //AUTHENTICATE
 export const LOGIN_API = "/Authentication/login";
