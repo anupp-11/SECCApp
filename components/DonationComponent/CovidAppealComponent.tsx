@@ -31,7 +31,7 @@ const CovidAppealComponent = () => {
     <ScrollView style={styles.container}>
       <Card style={{marginBottom:10}}>
         <Card.Title titleStyle={{ fontSize:16, lineHeight:24, marginVertical:10}} titleNumberOfLines={2} title="The SECC COVID-19 Appeal."/>
-        <Card.Cover style={{marginTop:10}} source={require('../../assets/images/thumb.jpeg')} />
+        <Card.Cover style={{marginTop:10}} source={require('../../assets/images/thumbdoo.jpeg')} />
         <Card.Content style={{marginTop:10}}>
           <Title>
             Donate now to a local family who needs your help.

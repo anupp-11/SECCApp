@@ -7,6 +7,7 @@ import {
 import { EventRegister } from 'react-native-event-listeners';
 import { Card } from 'react-native-paper';
 import DonationListComponent from '../../../components/DonationComponent/DonationListComponent';
+import AppProgressBar from '../../../components/ProgressBar';
 import { getDonations } from '../../../service/DonationService';
 import styles from './styles';
 
@@ -40,31 +41,41 @@ const SupportUsScreen = () => {
   const headerComponent = () =>{
     return(
       <Card onPress={handelOnPress} style={{marginBottom:10}}>
-        <Card.Cover source={require('../../../assets/images/thumb.jpeg')} />
+        <Card.Cover source={require('../../../assets/images/thumbdoo.jpeg')} />
         <Card.Title title="The SECC COVID-19 Appeal"/>
       </Card>
     );
   };
   const renderItem = ({ item }) => <DonationListComponent donation={item}/>;
-  return (
-    <View style={styles.container}>
-     
-      <FlatList
-          ListHeaderComponent = {headerComponent}
-          initialNumToRender={8}
-          showsVerticalScrollIndicator={false}
-          data={donation}
-          renderItem={renderItem}
-          //keyExtractor={(item: Product, index) => index.toString()}
-          horizontal={false}
-          style={{
-            width: "100%",
-            marginTop: 10,
-          }}
-        />
-      
+  
+
+  if(isProcessing)
+  {return(
+    <View style={{flex:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <AppProgressBar />
     </View>
-  );
+  )}
+  else{
+    return (
+      <View style={styles.container}>
+       
+        <FlatList
+            ListHeaderComponent = {headerComponent}
+            initialNumToRender={8}
+            showsVerticalScrollIndicator={false}
+            data={donation}
+            renderItem={renderItem}
+            //keyExtractor={(item: Product, index) => index.toString()}
+            horizontal={false}
+            style={{
+              width: "100%",
+              marginTop: 10,
+            }}
+          />
+        
+      </View>
+    );
+  }
 };
 
 export default SupportUsScreen;

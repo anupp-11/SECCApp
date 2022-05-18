@@ -14,35 +14,16 @@ import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/LoginComponents/Button';
 import { getUserFromDevice } from '../../service/AccountService';
 import { isExpired, decodeToken } from "react-jwt";
+import jwt_decode from "jwt-decode";
+
 
 export default class HomeScreen extends React.Component {
-  // const navigation = useNavigation();
-
-  // const [admin, setAdmin] = React.useState(true);
-  
-  // useEffect(() => {
-  //   async function fetchMyAPI() {
-  //     const user = await getUserFromDevice();
-  //     debugger;
-  //     if (user) {
-  //       const token = decodeToken(user.jwtToken);
-  //       if(token.userType=="ADMIN"){
-  //         setAdmin(true);
-  //       }
-  //       else{
-  //           setAdmin(false);
-  //       }
-  //     }
-  //   }
-
-  //   fetchMyAPI();
-  // }, []);
 
   constructor(props: any, private backHandler : BackHandler) {
     super(props);
    
     this.state = {
-      admin:true,
+      admin:false,
       userName:"User"
     };
   }
@@ -78,9 +59,19 @@ export default class HomeScreen extends React.Component {
   componentDidMount = async () => {  
     BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
-    // const user = await getUserFromDevice();
+    const user = await getUserFromDevice();
+    if(user){
+      const token = user.jwtToken;
+      const decoded = jwt_decode(token);
+      debugger;
+      if(decoded.userType == "ADMIN"){
+        this.setState({admin:true});
+      }else{
+        this.setState({admin:false})
+      }
+    }
     
-    // this.setState({userName:user.name});
+    this.setState({userName:user.name});
     
   };
   componentWillUnmount() {
