@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   Keyboard,
+  Linking,
 } from "react-native";
 import BackButton from "../../components/LoginComponents/BackButton";
 import Button from "../../components/LoginComponents/Button";
@@ -37,7 +38,12 @@ const LoginScreen = () => {
   const Register = () => {
     navigation.navigate("Register");
   };
+  // https://www.secc.sydney/terms-and-conditions/
 
+  const Terms = ()=>{
+    //open url on click
+    Linking.openURL('https://www.secc.sydney/terms-and-conditions/')
+  }
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [isProcessing, setIsProcessing] = useState(false);
@@ -171,11 +177,11 @@ const LoginScreen = () => {
 
             <View style={styles.row}>
               <Text style={styles.label}>By continuing you agree to our </Text>
-              <TouchableOpacity onPress={Register}>
+              <TouchableOpacity onPress={Terms}>
                 <Text style={styles.link}>Terms of Services</Text>
               </TouchableOpacity>
               <Text style={styles.label}> and </Text>
-              <TouchableOpacity onPress={Register}>
+              <TouchableOpacity onPress={Terms}>
                 <Text style={styles.link}>Privacy Policy.</Text>
               </TouchableOpacity>
             </View>

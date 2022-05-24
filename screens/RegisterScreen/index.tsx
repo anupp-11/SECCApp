@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   Keyboard,
+  Linking,
 } from "react-native";
 import BackButton from "../../components/LoginComponents/BackButton";
 import Button from "../../components/LoginComponents/Button";
@@ -74,6 +75,11 @@ const RegisterScreen = () => {
       Alert.alert("Registration Failed", error.message);
     }
   };
+
+  const Terms = ()=>{
+    //open url on click
+    Linking.openURL('https://www.secc.sydney/terms-and-conditions/')
+  }
 
   return (
     <KeyboardAvoidingView
@@ -170,11 +176,11 @@ const RegisterScreen = () => {
 
             <View style={styles.row}>
               <Text style={styles.label}>By continuing you agree to our </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={Terms}>
                 <Text style={styles.link}>Terms of Services</Text>
               </TouchableOpacity>
               <Text style={styles.label}> and </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={Terms}>
                 <Text style={styles.link}>Privacy Policy.</Text>
               </TouchableOpacity>
             </View>

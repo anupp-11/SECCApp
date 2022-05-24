@@ -11,7 +11,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexWrap: 'wrap',
     //alignContent: 'space-around',
+    //backgroundColor:'red',
     height: '100%',
+    marginBottom:10
   },
   card: {
     marginVertical:20,
