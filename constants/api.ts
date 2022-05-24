@@ -1,9 +1,11 @@
-export const BASE_URL ="https://4399-110-44-125-14.in.ngrok.io";
+export const BASE_URL ="http://ec2-18-205-56-218.compute-1.amazonaws.com:8888";
 
 //AUTHENTICATE
 export const LOGIN_API = "/Authentication/login";
 export const REGISTER_API = "/Authentication/register";
 export const FORGOT_PASSWORD_API = "/Authentication/ForgotPassword";
+export const VERIFY_RESET_TOKEN = "/Authentication/verifyresetotp";
+export const RESET_PASS="/Authentication/resetpass";
 
 //NEWS
 export const GETALLNEWS_API = "/NewsModel/get";
@@ -33,6 +35,8 @@ export const DELETEDONATIONS_API = "/FundRaisingCampaign/delete/";
 export const LOGIN_URL = `${BASE_URL}${LOGIN_API}`;
 export const REGISTER_URL = `${BASE_URL}${REGISTER_API}`;
 export const FORGOT_PASSWORD_URL = `${BASE_URL}${FORGOT_PASSWORD_API}`;
+export const VERIFY_RESET_TOKEN_URL = `${BASE_URL}${VERIFY_RESET_TOKEN}`;
+export const RESET_PASS_URL = `${BASE_URL}${RESET_PASS}`;
 
 
 //NEWS URLS
