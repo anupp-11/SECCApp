@@ -21,7 +21,7 @@ const PeoplePantryScreen = () => {
     <View style={styles.container}>
       <Card style={{marginBottom:10}}>
         <Card.Title titleStyle={{ fontSize:16, lineHeight:24, marginVertical:10}} titleNumberOfLines={2} title="The People’s Pantry exists to support locals facing food insecurity."/>
-        <Card.Cover style={{marginTop:10}} source={{ uri: 'https://picsum.photos/700' }} />
+        <Card.Cover style={{marginTop:10}} source={require("../../../assets/images/peoplespantry.jpg")} />
         <Card.Content style={{marginTop:10}}>
           <Paragraph>
             Our grassroots food relief programs runs out of SECC's Community Hub in Mascot, and is fuelled by donations from our community.{"\n"}

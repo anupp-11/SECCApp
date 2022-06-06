@@ -51,5 +51,6 @@
       public id: string,
       public userName:string,
       public jwtToken:string,
+      public email:string
     ) {}
   }

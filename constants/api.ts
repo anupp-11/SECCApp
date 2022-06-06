@@ -1,4 +1,4 @@
-export const BASE_URL ="http://ec2-18-205-56-218.compute-1.amazonaws.com:8888";
+export const BASE_URL ="http://ec2-3-235-188-136.compute-1.amazonaws.com:8888";
 
 //AUTHENTICATE
 export const LOGIN_API = "/Authentication/login";

@@ -31,6 +31,7 @@ export default class HomeScreen extends React.Component {
       name: "",
       userName: "",
       jwtToken: "",
+      email: "",
     };
     // const resp = await saveUserToDevice(data);
     // this.props.navigation.navigate('Dashboard');
@@ -55,15 +56,18 @@ export default class HomeScreen extends React.Component {
     BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
     const user = await getUserFromDevice();
-    if (user) {
+    if (user?.jwtToken) {
       const token = user.jwtToken;
       const decoded = jwt_decode(token);
-      debugger;
-      if (decoded.userType == "ADMIN") {
-        this.setState({ admin: true });
-      } else {
+      if(decoded){
+        if (decoded?.userType == "ADMIN") {
+          this.setState({ admin: true });
+        } 
+      }
+      else {
         this.setState({ admin: false });
       }
+      
     }
 
     this.setState({ userName: user.name });
